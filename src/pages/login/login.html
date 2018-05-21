@@ -14,5 +14,22 @@
 
 
 <ion-content padding>
-
+    <form [formGroup]="userLoginFormGroup" #userLoginForm (ngSubmit)="authenticate()">
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Email Address</ion-label>
+            <ion-input type="email"  formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input  type="password"   formControlName="password"></ion-input>
+          </ion-item>
+        </ion-list>
+        <div>
+          <button ion-button [disabled]="!userLoginFormGroup.valid" block>Sign In</button>
+        </div>
+      </form>
+      <div padding>
+          <button ion-button block color="light"  (click)="goToRegistrationPage()">Sign Up</button> 
+      </div>
 </ion-content>
