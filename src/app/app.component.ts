@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,15 +8,30 @@ import { HomePage } from '../pages/home/home';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = "HomePage";
-
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  rootPage:any = "LoginPage";
+  pageSettings: Array<{ title: string, page: any }>;
+  @ViewChild(Nav) nav: Nav;
+  constructor(
+    platform: Platform,
+     statusBar: StatusBar,
+     private menuCtrl: MenuController,
+      splashScreen: SplashScreen) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+      this.pageSettings = [
+        { title: 'Give A Ride', page: 'GiveRidePage'},
+      ];
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  openPage(pageSetting) {
+    this.menuCtrl.close();
+    if (pageSetting.page == 'HomePage'|| pageSetting.page == 'LoginPage') {
+      this.nav.setRoot(pageSetting.page);
+    }
+    else
+      this.nav.push(pageSetting.page);
   }
 }
 

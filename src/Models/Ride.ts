@@ -4,3 +4,4 @@ export class Ride{
     public vehicleCapacity:string;
     public startDate:string;
 }
+

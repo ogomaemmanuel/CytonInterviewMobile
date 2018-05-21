@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { UserLogin } from '../../Models/UserLogin';
+import { UserRegistration } from '../../Models/UserRegistration';
+import 'rxjs/add/operator/map';
+import { inject } from '@angular/core/src/render3';
+import { URLTOKEN } from '../../app/app.urltoken';
 
 /*
   Generated class for the AuthProvider provider.
@@ -10,13 +14,17 @@ import { UserLogin } from '../../Models/UserLogin';
 */
 @Injectable()
 export class AuthProvider {
-
-  constructor(public http: HttpClient) {
-    console.log('Hello AuthProvider Provider');
+  authApi:string="api/Accounts"
+  endPoint:string ;
+  constructor(
+   @Inject(URLTOKEN)apiUrl:string,
+   public http: HttpClient) {
+   this.endPoint=apiUrl+this.authApi
   }
 
 
   login(user:UserLogin){
+   return this.http.post(this.endPoint+"/login",user).map(resp=>resp)
 
   }
 
@@ -25,7 +33,16 @@ export class AuthProvider {
 
   }
 
-  register(){
+  register(user:UserRegistration){
+    return this.http.post(this.endPoint+"/register",user).map(resp=>resp);
+
+  }
+
+  delete(){
+
+  }
+
+  update(){
 
   }
 

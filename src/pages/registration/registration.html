@@ -14,5 +14,62 @@
 
 
 <ion-content padding>
+    <form [formGroup]="userRegisterFormGroup" (ngSubmit)="register()">
+        <ion-list>
+          <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <span *ngIf="userRegisterFormGroup.controls.email.hasError('pattern')
+              && userRegisterFormGroup.get('userName').touched" class="alert alert-danger">
+            Enter a valid password
+          </span>
+          <span *ngIf="userRegisterFormGroup.controls.email.hasError('required')
+              && userRegisterFormGroup.get('email').touched" class="alert alert-danger">
+            Username is required
+          </span>
+          <span *ngIf="userRegisterFormGroup.controls.email.hasError('minlength')
+             && userRegisterFormGroup.get('email').touched" class="alert alert-danger">
+            Username must be atleast character
+          </span>
+          <ion-item>
+              <ion-label floating>Phone</ion-label>
+              <ion-input type="text" formControlName="phoneNumber"></ion-input>
+            </ion-item>
+
+
+
+
+          <ion-item>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <span *ngIf="userRegisterFormGroup.controls.password.hasError('pattern')
+          && userRegisterFormGroup.get('password').touched" class="alert alert-danger">
+           Enter a valid password
+         </span>
+         <span *ngIf="userRegisterFormGroup.controls.password.hasError('required')
+           && userRegisterFormGroup.get('password').touched" class="alert alert-danger">
+           Password is required
+         </span>
+         <span *ngIf="userRegisterFormGroup.controls.password.hasError('minlength') 
+          && userRegisterFormGroup.get('password').touched" class="alert alert-danger">
+           Password must be atleast character
+         </span>
+          <ion-item>
+              <ion-label floating>Confirm Password</ion-label>
+              <ion-input type="password" formControlName="confirmPassword"></ion-input>
+            </ion-item>
+         
+        </ion-list>
+           <div>
+          <button ion-button [disabled]="!userRegisterFormGroup.valid" block>Register</button>
+    
+        </div>
+    
+      </form>
+    
+      <div padding>
+      </div>
 
 </ion-content>

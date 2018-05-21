@@ -7,6 +7,11 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
+import { URLTOKEN } from './app.urltoken';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { RideProvider } from '../providers/ride/ride';
+import { RideBookingProvider } from '../providers/ride-booking/ride-booking';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,12 @@ import { AuthProvider } from '../providers/auth/auth';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -25,8 +35,11 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    {provide:URLTOKEN,useValue:"http://localhost:49239/"},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    RideProvider,
+    RideBookingProvider
   ]
 })
 export class AppModule {}
