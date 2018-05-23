@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RideProvider } from '../../providers/ride/ride';
 
 /**
  * Generated class for the AvailableRidesPage page.
@@ -13,13 +14,34 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-available-rides',
   templateUrl: 'available-rides.html',
 })
-export class AvailableRidesPage {
+export class AvailableRidesPage implements OnInit {
+  
+   rides:any=[];
+  constructor(
+    public navCtrl: NavController,
+    private rideCtr:RideProvider,
+    public navParams: NavParams) {
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  ngOnInit(): void {
+    this.getAvailableRides();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AvailableRidesPage');
   }
+
+  getAvailableRides(){
+    this.rideCtr.getRides().subscribe(rides=>{
+    this.rides=rides;
+    });
+  }
+
+  goToBookingPage(ride:any){
+    this.navCtrl.push("RideBookingPage",{ride:ride});
+  }
+  ionViewWillEnter() {
+    this.getAvailableRides();
+     }
 
 }

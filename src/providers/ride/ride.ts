@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { URLTOKEN } from '../../app/app.urltoken';
+import { Ride } from '../../Models/Ride';
 
 /*
   Generated class for the RideProvider provider.
@@ -9,27 +11,31 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class RideProvider {
-
-  constructor(public http: HttpClient) {
-    console.log('Hello RideProvider Provider');
-  }
-
-  getRides(){
-
-  }
-  createRide(){
+  endPoint = "api/Ride"
+  constructor(
+    @Inject(URLTOKEN) apiUrl: string,
+    public http: HttpClient) {
+    this.endPoint = apiUrl + this.endPoint;
 
   }
 
-  deleteRide(){
+  getRides() {
+    return this.http.get(this.endPoint+"/all" ).map(resp=>resp)
+  }
+  createRide(ride: Ride) {
+   return this.http.post(this.endPoint,ride).map(resp=>resp)
 
   }
 
-  getRide(){
+  deleteRide() {
 
   }
 
-  updateRide(){
+  getRide() {
+
+  }
+
+  updateRide() {
 
   }
 }

@@ -8,10 +8,11 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AuthProvider } from '../providers/auth/auth';
 import { URLTOKEN } from './app.urltoken';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { RideProvider } from '../providers/ride/ride';
 import { RideBookingProvider } from '../providers/ride-booking/ride-booking';
+import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor/app-http-interceptor';
 
 @NgModule({
   declarations: [
@@ -35,11 +36,16 @@ import { RideBookingProvider } from '../providers/ride-booking/ride-booking';
   providers: [
     StatusBar,
     SplashScreen,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptorProvider,
+      multi: true
+    },
     {provide:URLTOKEN,useValue:"http://localhost:49239/"},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     RideProvider,
-    RideBookingProvider
+    RideBookingProvider,
   ]
 })
 export class AppModule {}
