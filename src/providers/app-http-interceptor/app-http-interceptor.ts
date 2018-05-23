@@ -20,27 +20,16 @@ export class AppHttpInterceptorProvider  implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     return Observable.fromPromise(this.storage.get("loggedInUserDetails")).mergeMap((userDetails:any)=>{
-      if (req.responseType == 'json') {
        console.clear();
        console.log("Bearer "+JSON.parse(userDetails).accessToken);
        //console.log("User Details "+(userDetails))
-       req = req.clone({ responseType: 'text',
+       req = req.clone({ 
        setHeaders: {  
          Authorization: "Bearer "+JSON.parse(userDetails).accessToken
         }  
       });
-       return next.handle(req).map(response => {
-         if (response instanceof HttpResponse) {
-           response = response.clone<any>({ body: JSON.parse(response.body)});
-         }
-         
-         return response;
-       });
-     }
- 
-     return next.handle(req);
+       return next.handle(req)
      })
-    
    }
   }
  
