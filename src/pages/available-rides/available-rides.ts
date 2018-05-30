@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 import { RideProvider } from '../../providers/ride/ride';
 
 /**
@@ -19,6 +19,7 @@ export class AvailableRidesPage implements OnInit {
    rides:any=[];
   constructor(
     public navCtrl: NavController,
+    public popoverCtrl: PopoverController,
     private rideCtr:RideProvider,
     public navParams: NavParams) {
   }
@@ -43,5 +44,13 @@ export class AvailableRidesPage implements OnInit {
   ionViewWillEnter() {
     this.getAvailableRides();
      }
+
+     presentPopover(myEvent) {
+      let popover = this.popoverCtrl.create("PopoverPage",);
+      popover.present({
+        ev: myEvent
+      });
+    }
+  
 
 }

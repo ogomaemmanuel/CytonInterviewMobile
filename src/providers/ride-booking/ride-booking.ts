@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { URLTOKEN } from '../../app/app.urltoken';
+import { BookedRide } from '../../Models/BookedRide';
 
 /*
   Generated class for the RideBookingProvider provider.
@@ -9,9 +11,19 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class RideBookingProvider {
+  endPoint:string="api/RideBooking";
+  constructor(
+    @Inject(URLTOKEN)apiUrl:string,
+    public http: HttpClient) {
+   this.endPoint=apiUrl+this.endPoint;
+  }
 
-  constructor(public http: HttpClient) {
-    console.log('Hello RideBookingProvider Provider');
+  bookRide(bookedRide:BookedRide){
+    return  this.http.post(this.endPoint,bookedRide).map(resp=>resp);
+  }
+
+  cancelBooking(){
+
   }
 
 }
