@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { UserLogin } from '../../Models/UserLogin';
@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
     private storage:Storage,
     private alertCtr:AlertController,
     public navCtrl: NavController,
+    private menuCtrl: MenuController,
     private auth: AuthProvider,
     private formBuilder: FormBuilder,
     public navParams: NavParams) {
@@ -43,6 +44,7 @@ export class LoginPage implements OnInit {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.menuCtrl.swipeEnable(false);
   }
   goToRegistrationPage() {
     this.navCtrl.push("RegistrationPage")
@@ -70,5 +72,11 @@ export class LoginPage implements OnInit {
       }
 
      });
+  }
+  ionViewWillEnter() {
+    this.menuCtrl.swipeEnable(false)
+  }
+  ionViewDidLeave() {
+    this.menuCtrl.swipeEnable(false)
   }
 }
