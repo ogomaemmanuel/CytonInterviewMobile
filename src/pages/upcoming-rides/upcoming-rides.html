@@ -14,5 +14,20 @@
 
 
 <ion-content padding>
+    <ion-list>
+        <div *ngIf="upcomingRides.length>0">
+        <ion-item *ngFor="let ride of upcomingRides">
+         
+          <p>Destination: {{ride.origin}}</p>
+          <p>Origin: {{ride.destination}}</p>
+          <p>Start Date: {{ride.startDate|date:'dd-MM-yyyy'}}</p>
+          <p>Capacity: {{ride.capacity}}</p>
+          <p>Space Booked: {{ride.space}}</p>
+          <p>Booking Date: {{ride.bookingDate| date:'dd-MM-yyyy' }}</p>
+          <!-- <p>Availabale space: {{ride.orderTotal}}</p> -->
+          <!-- <button (click)="goToBookingPage(ride)" ion-button clear item-end>cancel</button> -->
+        </ion-item>
+        </div>
+      </ion-list>
 
 </ion-content>

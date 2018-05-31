@@ -25,5 +25,11 @@ export class RideBookingProvider {
   cancelBooking(){
 
   }
+  getCustomerBookedRides(){
+    return this.http.get<BookedRide[]>(this.endPoint+"/bookedRide").map(resp=>resp);
+  }
 
+  getPastRides(){
+     return this.http.get<BookedRide[]>(this.endPoint+"/pastRides").map(resp=>resp)
+  }
 }

@@ -20,7 +20,7 @@
          
           <p>Destination: {{ride.origin}}</p>
           <p>Origin: {{ride.destination}}</p>
-          <p>Start Date: {{ride.startTime}}</p>
+          <p>Start Date: {{ride.startTime|date:'dd-MM-yyyy'}}</p>
           <p>Capacity: {{ride.capacity}}</p>
           <!-- <p>Availabale space: {{ride.orderTotal}}</p> -->
           <button (click)="goToBookingPage(ride)" ion-button clear item-end>Book</button>

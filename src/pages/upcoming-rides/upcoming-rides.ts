@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BookedRide } from '../../Models/BookedRide';
+import { RideBookingProvider } from '../../providers/ride-booking/ride-booking';
 
 /**
  * Generated class for the UpcomingRidesPage page.
@@ -14,12 +16,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'upcoming-rides.html',
 })
 export class UpcomingRidesPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  upcomingRides: BookedRide[] = [];
+  constructor(
+    public navCtrl: NavController,
+    private bookedRideCtr: RideBookingProvider,
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UpcomingRidesPage');
+  }
+
+  ionViewWillEnter() {
+    this.getBookedRides();
+     }
+  getBookedRides() {
+    this.bookedRideCtr.getCustomerBookedRides().subscribe(resp => {
+      this.upcomingRides = resp;
+      
+    }, error => {
+
+    })
   }
 
 }
