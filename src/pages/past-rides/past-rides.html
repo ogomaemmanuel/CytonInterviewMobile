@@ -12,7 +12,35 @@
 
 </ion-header> -->
 
+<!--
+  Generated template for the UpcomingRidesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header no-border>
+
+  <ion-navbar color="primary">
+    <ion-title>UpcomingRides</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
 
 <ion-content padding>
-
+    <ion-list>
+        <div *ngIf="pastRides.length>0">
+        <ion-item *ngFor="let ride of pastRides">
+         
+          <p>Destination: {{ride.origin}}</p>
+          <p>Origin: {{ride.destination}}</p>
+          <p>Start Date: {{ride.startDate|date:'dd-MM-yyyy'}}</p>
+          <p>Capacity: {{ride.capacity}}</p>
+          <p>Space Booked: {{ride.space}}</p>
+          <p>Booking Date: {{ride.bookingDate| date:'dd-MM-yyyy' }}</p>
+          <!-- <p>Availabale space: {{ride.orderTotal}}</p> -->
+          <!-- <button (click)="goToBookingPage(ride)" ion-button clear item-end>cancel</button> -->
+        </ion-item>
+        </div>
+      </ion-list>
 </ion-content>

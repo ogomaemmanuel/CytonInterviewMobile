@@ -41,6 +41,7 @@ import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor/ap
       useClass: AppHttpInterceptorProvider,
       multi: true
     },
+    //{provide:URLTOKEN,useValue:"http://cytoninterview.westeurope.cloudapp.azure.com/"},
     {provide:URLTOKEN,useValue:"http://localhost:49239/"},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
